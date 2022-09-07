@@ -4,6 +4,7 @@ const dotenv = require("dotenv");
 const app = express();
 const port = process.env.PORT || 5000;
 const pinRoute = require("./routes/pins");
+const userRoute = require("./routes/users");
 
 dotenv.config();
 
@@ -17,6 +18,7 @@ mongoose
   .catch((err) => console.log(err));
 
 app.use("/api/pins", pinRoute);
+app.use("/api/users", userRoute);
 
 app.listen(port, () => {
   console.log("Server is running on 5000");
