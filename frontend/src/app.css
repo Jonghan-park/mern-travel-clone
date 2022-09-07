@@ -1,5 +1,6 @@
 .pin_icon{
   font-size: 40px;
+  cursor: pointer;
 }
 .card{
   width: 250px;
