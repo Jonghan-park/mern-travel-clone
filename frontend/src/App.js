@@ -1,10 +1,27 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import Map, { Marker, Popup } from "react-map-gl";
 import { FaMapMarkerAlt, FaStar } from "react-icons/fa";
+import axios from "axios";
+import { format } from "timeago.js";
 import "./app.css";
 
 function App() {
+  const [pins, setPins] = useState([]);
+  const [viewport, setViewport] = useState({});
   const [showPopup, setShowPopup] = useState(true);
+
+  useEffect(() => {
+    const getPins = async () => {
+      try {
+        const res = await axios.get("/pins");
+        setPins(res.data);
+      } catch (error) {
+        console.log(error);
+      }
+    };
+    getPins();
+  }, []);
+
   return (
     <div className="App">
       <Map
@@ -17,37 +34,39 @@ function App() {
         mapboxAccessToken={process.env.REACT_APP_MAPBOX}
         mapStyle="mapbox://styles/mapbox/streets-v8"
       >
-        <Marker longitude={127.024612} latitude={37.5326} anchor="top">
-          <FaMapMarkerAlt className="pin_icon" />
-        </Marker>
-        {showPopup && (
-          <Popup
-            longitude={127.024612}
-            latitude={37.5326}
-            anchor="bottom"
-            onClose={() => setShowPopup(false)}
-          >
-            <div className="card">
-              <label>Place</label>
-              <h4 className="place">Han river</h4>
-              <label>Review</label>
-              <p className="desc">Beautiful place. I liked it. </p>
-              <label>Rating</label>
-              <div className="stars">
-                <FaStar className="star" />
-                <FaStar className="star" />
-                <FaStar className="star" />
-                <FaStar className="star" />
-                <FaStar className="star" />
+        {pins.map((p) => (
+          <>
+            <Marker longitude={p.long} latitude={p.lat} anchor="top">
+              <FaMapMarkerAlt className="pin_icon" />
+            </Marker>
+            <Popup
+              longitude={p.long}
+              latitude={p.lat}
+              anchor="bottom"
+              onClose={() => setShowPopup(false)}
+            >
+              <div className="card">
+                <label>Place</label>
+                <h4 className="place">{p.title}</h4>
+                <label>Review</label>
+                <p className="desc">{p.desc}</p>
+                <label>Rating</label>
+                <div className="stars">
+                  <FaStar className="star" />
+                  <FaStar className="star" />
+                  <FaStar className="star" />
+                  <FaStar className="star" />
+                  <FaStar className="star" />
+                </div>
+                <label>Information</label>
+                <span className="username">
+                  Created by <b>{p.username}</b>
+                </span>
+                <span className="date">{format(p.createdAt)}</span>
               </div>
-              <label>Information</label>
-              <span className="username">
-                Created by <b>Joseph</b>
-              </span>
-              <span className="date">1 hour ago</span>
-            </div>
-          </Popup>
-        )}
+            </Popup>
+          </>
+        ))}
       </Map>
     </div>
   );
