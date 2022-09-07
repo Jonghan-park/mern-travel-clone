@@ -29,10 +29,13 @@ function App() {
     setCurrentPlaceId(id);
   };
   const handleAddClick = (e) => {
-    const [long, lat] = e.lngLat;
+    console.log(e);
+    const lat = e.lngLat.lat;
+    const lng = e.lngLat.lng;
+
     setNewPlace({
       lat,
-      long,
+      lng,
     });
   };
 
@@ -93,15 +96,18 @@ function App() {
             )}
           </>
         ))}
-        {/* <Popup
-          key={}
-          longitude={}
-          latitude={}
-          closeButton={true}
-          closeOnClick={false}
-          anchor="bottom"
-          onClose={() => setCurrentPlaceId(null)}
-        >HEllo</Popup> */}
+        {newPlace && (
+          <Popup
+            longitude={newPlace.lng}
+            latitude={newPlace.lat}
+            closeButton={true}
+            closeOnClick={false}
+            anchor="bottom"
+            onClose={() => setCurrentPlaceId(null)}
+          >
+            HEllo
+          </Popup>
+        )}
       </Map>
     </div>
   );
