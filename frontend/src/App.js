@@ -9,6 +9,7 @@ function App() {
   const currentUser = "Jane";
   const [pins, setPins] = useState([]);
   const [currentPlaceId, setCurrentPlaceId] = useState(null);
+  const [newPlace, setNewPlace] = useState(null);
   const [viewport, setViewport] = useState({});
   const [showPopup, setShowPopup] = useState(true);
 
@@ -25,21 +26,28 @@ function App() {
   }, []);
 
   const handleMarkerClick = (id) => {
-    console.log(currentPlaceId);
     setCurrentPlaceId(id);
+  };
+  const handleAddClick = (e) => {
+    const [long, lat] = e.lngLat;
+    setNewPlace({
+      lat,
+      long,
+    });
   };
 
   return (
     <div className="App">
       <Map
         initialViewState={{
-          longitude: 119.1565309,
-          latitude: 35.5127629,
-          zoom: 10,
+          longitude: 126.97696994010124,
+          latitude: 37.56762617355592,
+          zoom: 11,
         }}
         style={{ width: "80vw", height: "80vh" }}
         mapboxAccessToken={process.env.REACT_APP_MAPBOX}
         mapStyle="mapbox://styles/mapbox/streets-v8"
+        onDblClick={handleAddClick}
       >
         {pins.map((p) => (
           <>
@@ -85,6 +93,15 @@ function App() {
             )}
           </>
         ))}
+        {/* <Popup
+          key={}
+          longitude={}
+          latitude={}
+          closeButton={true}
+          closeOnClick={false}
+          anchor="bottom"
+          onClose={() => setCurrentPlaceId(null)}
+        >HEllo</Popup> */}
       </Map>
     </div>
   );
