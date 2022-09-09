@@ -27,7 +27,7 @@ const Register = (props) => {
   };
   return (
     <div className="registerContainer">
-      <div className="logo">
+      <div className="registerLogo">
         <FaMapMarkerAlt /> JosephPin
       </div>
       <form onSubmit={handleSubmit}>

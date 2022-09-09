@@ -69,6 +69,7 @@ input::placeholder, textarea::placeholder{
 .login{
   cursor: pointer;
   background-color: teal;
+  margin-right: 10px;
 }
 .register{
   cursor: pointer;
