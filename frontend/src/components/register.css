@@ -16,6 +16,7 @@
   justify-content: space-between;
 }
 .logo{
+  font-size: 20px;
   color: slateblue;
   display: flex;
   align-items: center;
@@ -37,4 +38,12 @@
   color: red;
   font-size: 12px;
   text-align: center;
+}
+.registerCancel{
+  position: absolute;
+  font-size: 25px;
+  top: 5px;
+  right: 5px;
+  cursor: pointer;
+  border-radius: 50%;
 }

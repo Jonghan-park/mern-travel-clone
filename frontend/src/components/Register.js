@@ -1,9 +1,9 @@
 import React, { useState, useRef } from "react";
 import "./register.css";
-import { FaMapMarkerAlt } from "react-icons/fa";
+import { FaMapMarkerAlt, FaWindowClose } from "react-icons/fa";
 import axios from "axios";
 
-const Register = () => {
+const Register = (props) => {
   const [success, setSuccess] = useState(false);
   const [error, setError] = useState(false);
   const nameRef = useRef();
@@ -40,6 +40,10 @@ const Register = () => {
         )}
         {error && <span className="failure">Something went wrong!</span>}
       </form>
+      <FaWindowClose
+        className="registerCancel"
+        onClick={() => props.setShowRegister(false)}
+      />
     </div>
   );
 };

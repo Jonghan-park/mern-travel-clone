@@ -5,6 +5,7 @@ import axios from "axios";
 import { format } from "timeago.js";
 import "./app.css";
 import Register from "./components/Register";
+import Login from "./components/Login";
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -13,9 +14,10 @@ function App() {
   const [newPlace, setNewPlace] = useState(null);
   const [title, setTitle] = useState(null);
   const [desc, setDesc] = useState(null);
+  const [showRegister, setShowRegister] = useState(false);
+  const [showLogin, setShowLogin] = useState(false);
   const [rating, setRating] = useState(1);
   const [viewport, setViewport] = useState({});
-  const [showPopup, setShowPopup] = useState(true);
 
   useEffect(() => {
     const getPins = async () => {
@@ -162,11 +164,19 @@ function App() {
           <button className="button logout">Log out</button>
         ) : (
           <div className="buttons">
-            <button className="button login">Login</button>
-            <button className="button register">Register</button>
+            <button className="button login" onClick={() => setShowLogin(true)}>
+              Login
+            </button>
+            <button
+              className="button register"
+              onClick={() => setShowRegister(true)}
+            >
+              Register
+            </button>
           </div>
         )}
-        <Register />
+        {showRegister && <Register setShowRegister={setShowRegister} />}
+        {showLogin && <Login setShowLogin={setShowLogin} />}
       </ReactMapGL>
     </div>
   );
