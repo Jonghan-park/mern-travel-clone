@@ -23,6 +23,7 @@
   font-weight: 700;
 }
 .loginBtn{
+  cursor: pointer;
   border: none;
   padding: 5px;
   border-radius: 5px;

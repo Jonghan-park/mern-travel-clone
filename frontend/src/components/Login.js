@@ -15,8 +15,11 @@ const Login = (props) => {
       password: passwordRef.current.value,
     };
     try {
-      await axios.post("/users/login", user);
+      const res = await axios.post("/users/login", user);
+      props.myStorage.setItem("user", res.data.username);
+      props.setCurrentUser(res.data.username);
       setError(false);
+      props.setShowLogin(false);
     } catch (error) {
       setError(true);
     }
@@ -29,7 +32,7 @@ const Login = (props) => {
       <form onSubmit={handleSubmit}>
         <input type="text" placeholder="username" ref={nameRef} />
         <input type="password" placeholder="password" ref={passwordRef} />
-        <button className="loginBtn">Register</button>
+        <button className="loginBtn">Login</button>
         {error && <span className="failure">Something went wrong!</span>}
       </form>
       <FaWindowClose
