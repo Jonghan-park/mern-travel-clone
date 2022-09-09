@@ -4,6 +4,7 @@ import { FaMapMarkerAlt, FaStar } from "react-icons/fa";
 import axios from "axios";
 import { format } from "timeago.js";
 import "./app.css";
+import Register from "./components/Register";
 
 function App() {
   const [currentUser, setCurrentUser] = useState(null);
@@ -165,6 +166,7 @@ function App() {
             <button className="button register">Register</button>
           </div>
         )}
+        <Register />
       </ReactMapGL>
     </div>
   );
